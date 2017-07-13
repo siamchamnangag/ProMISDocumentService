@@ -27,7 +27,6 @@ public class DocumentController {
     @RequestMapping(method = RequestMethod.POST, value = "/{doc_id}")
     ResponseEntity createDocumentFromTemplatev1(@PathVariable("doc_id") int documentId){
 
-
         //get dir object {description status user url} by docid
         DirDTO dir;
 
@@ -49,7 +48,7 @@ public class DocumentController {
         UploadFileDTO uploadFileDTO;
 
         try {
-            uploadFileDTO = documentService.uploadFileContent(fileContent,dir.getDescription());
+            uploadFileDTO = (UploadFileDTO) documentService.uploadFileContent(dir.getLink(),fileContent,dir.getDescription());
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity(new SCGResponseBody("upload failed"),HttpStatus.INTERNAL_SERVER_ERROR);

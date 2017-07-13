@@ -9,12 +9,15 @@ public class UploadFileBody {
 
     private byte[] content;
 
+    private String description;
+
     public UploadFileBody() {
     }
 
-    public UploadFileBody(String filename, byte[] content) {
+    public UploadFileBody(String filename, byte[] content,String description) {
         this.filename = filename;
         this.content = content;
+        this.description = description;
     }
 
     public String getFilename() {
@@ -31,5 +34,13 @@ public class UploadFileBody {
 
     public void setContent(byte[] content) {
         this.content = content;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

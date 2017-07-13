@@ -7,6 +7,10 @@ public class GetFileDTO {
 
     private byte[] body;
 
+
+    public GetFileDTO() {
+    }
+
     public GetFileDTO(byte[] body) {
         this.body = body;
     }

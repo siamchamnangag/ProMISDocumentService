@@ -2,11 +2,15 @@ package com.scg.document.service;
 
 import com.scg.document.model.DirDTO;
 import com.scg.document.model.GetFileDTO;
+import com.scg.document.model.UploadFileBody;
 import com.scg.document.model.UploadFileDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -32,11 +36,17 @@ public class DocumentService {
     }
 
     public GetFileDTO getFileContent(String templateLink) throws Exception {
-        return restTemplate.getForObject(getDirURL.replace("{url}",templateLink), GetFileDTO.class);
+        return restTemplate.getForObject(getFileURL.replace("{url}",templateLink), GetFileDTO.class);
     }
 
-    public UploadFileDTO uploadFileContent(byte[] fileContent, String description) {
-        HttpEntity<byte[]> entity = new HttpEntity<>(fileContent);
-        return restTemplate.postForObject(postFileURL.replace("{description}",description),entity ,UploadFileDTO.class);
+    public UploadFileDTO uploadFileContent(String link, byte[] fileContent, String description) throws Exception {
+
+        UploadFileBody uploadingBody = new UploadFileBody(link.substring( link.lastIndexOf('/')+1, link.length() ),fileContent,description);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<UploadFileBody> entity = new HttpEntity<>(uploadingBody,headers);
+
+        return restTemplate.postForObject(postFileURL,entity , UploadFileDTO.class);
     }
 }

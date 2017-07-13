@@ -8,6 +8,8 @@ public class UploadFileDTO {
     private String link;
     private String message;
 
+    public UploadFileDTO() {
+    }
 
     public UploadFileDTO(String link, String message) {
         this.link = link;
