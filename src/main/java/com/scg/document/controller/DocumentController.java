@@ -29,8 +29,12 @@ public class DocumentController {
     ResponseEntity createDocumentFromTemplate(@PathVariable("doc_id") int documentId,
                                                 @RequestParam(required = true,name = "xomlanid") String xomLanId) throws Exception {
 
-        //catch user service
-        SAPUser sapUser = userService.getSAPUser(xomLanId);
+        SAPUser sapUser;
+        try {
+            sapUser = userService.getSAPUser(xomLanId);
+        } catch (Exception e) {
+            return new ResponseEntity(new SCGResponseBody("User not found."),HttpStatus.NOT_FOUND);
+        }
 
         DirDTO fetchedDir;
         try {
