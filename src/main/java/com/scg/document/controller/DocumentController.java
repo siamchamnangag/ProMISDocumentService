@@ -29,6 +29,7 @@ public class DocumentController {
     ResponseEntity createDocumentFromTemplate(@PathVariable("doc_id") int documentId,
                                                 @RequestParam(required = true,name = "xomlanid") String xomLanId) throws Exception {
 
+        //catch user service
         SAPUser sapUser = userService.getSAPUser(xomLanId);
 
         DirDTO fetchedDir;

@@ -10,7 +10,7 @@ public class DirDTO {
     private String status;
     private String user;
     private String link;
-    private String messsage;
+    private String message;
 
     public DirDTO() {
     }
@@ -21,7 +21,7 @@ public class DirDTO {
         this.description = description;
         this.status = status;
         this.user = user;
-        this.messsage = message;
+        this.message = message;
     }
 
     public int getDocid() {
@@ -64,11 +64,11 @@ public class DirDTO {
         this.link = link;
     }
 
-    public String getMesssage() {
-        return messsage;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMesssage(String messsage) {
-        this.messsage = messsage;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
