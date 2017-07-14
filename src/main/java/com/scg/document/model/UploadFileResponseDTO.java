@@ -3,15 +3,15 @@ package com.scg.document.model;
 /**
  * Created by tanatloke on 7/13/2017 AD.
  */
-public class UploadFileDTO {
+public class UploadFileResponseDTO {
 
     private String link;
     private String message;
 
-    public UploadFileDTO() {
+    public UploadFileResponseDTO() {
     }
 
-    public UploadFileDTO(String link, String message) {
+    public UploadFileResponseDTO(String link, String message) {
         this.link = link;
         this.message = message;
     }

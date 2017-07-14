@@ -1,9 +1,8 @@
 package com.scg.document.controller;
 
 import com.scg.document.model.DirDTO;
-import com.scg.document.model.SAPUser;
 import com.scg.document.model.SCGResponseBody;
-import com.scg.document.model.UploadFileDTO;
+import com.scg.document.model.UploadFileResponseDTO;
 import com.scg.document.service.DocumentService;
 import com.scg.document.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * Created by tanatloke on 7/12/2017.
  */
+@CrossOrigin(origins = "*")
 @RestController()
 @RequestMapping("documents")
 public class DocumentController {
@@ -27,35 +27,35 @@ public class DocumentController {
     @RequestMapping(method = RequestMethod.POST, value = "/{doc_id}")
     ResponseEntity createDocumentFromTemplatev1(@PathVariable("doc_id") int documentId){
 
-        //get dir object {description status user url} by docid
-        DirDTO dir;
-
+        DirDTO fetchedDir;
         try {
-           dir  = documentService.getDirByDocID(documentId);
+            fetchedDir  = documentService.getDirByDocID(documentId);
         } catch (Exception e) {
            return new ResponseEntity(new SCGResponseBody("document is not found"),HttpStatus.NOT_FOUND);
         }
 
         byte[] fileContent;
         try {
-            fileContent = documentService.getFileContent(dir.getLink()).getBody();
+            fileContent = documentService.getFileContent(fetchedDir.getLink()).getBody();
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity(new SCGResponseBody("upload failed"),HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-
-        UploadFileDTO uploadFileDTO;
-
+        UploadFileResponseDTO uploadResponse;
         try {
-            uploadFileDTO = (UploadFileDTO) documentService.uploadFileContent(dir.getLink(),fileContent,dir.getDescription());
+            uploadResponse = (UploadFileResponseDTO) documentService.uploadFileContent(fetchedDir.getLink(),fileContent,fetchedDir.getDescription());
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity(new SCGResponseBody("upload failed"),HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         // create dir with new link and old dir
-        return new ResponseEntity(uploadFileDTO.getLink(),HttpStatus.OK);
+        fetchedDir.setLink(uploadResponse.getLink());
+
+
+
+        return new ResponseEntity(uploadResponse.getLink(),HttpStatus.OK);
     }
 
 

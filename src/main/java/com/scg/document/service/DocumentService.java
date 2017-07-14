@@ -3,7 +3,7 @@ package com.scg.document.service;
 import com.scg.document.model.DirDTO;
 import com.scg.document.model.GetFileDTO;
 import com.scg.document.model.UploadFileBody;
-import com.scg.document.model.UploadFileDTO;
+import com.scg.document.model.UploadFileResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -35,7 +35,7 @@ public class DocumentService {
         return restTemplate.getForObject(getFileURL.replace("{url}",templateLink), GetFileDTO.class);
     }
 
-    public UploadFileDTO uploadFileContent(String link, byte[] fileContent, String description) throws Exception {
+    public UploadFileResponseDTO uploadFileContent(String link, byte[] fileContent, String description) throws Exception {
 
         UploadFileBody uploadingBody = new UploadFileBody(link.substring( link.lastIndexOf('/')+1, link.length() ),fileContent,description);
         HttpHeaders headers = new HttpHeaders();
@@ -43,6 +43,6 @@ public class DocumentService {
 
         HttpEntity<UploadFileBody> entity = new HttpEntity<>(uploadingBody,headers);
 
-        return restTemplate.postForObject(postFileURL,entity , UploadFileDTO.class);
+        return restTemplate.postForObject(postFileURL,entity , UploadFileResponseDTO.class);
     }
 }
