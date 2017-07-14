@@ -1,0 +1,139 @@
+{
+	"id": "939ca601-b2a4-5fc0-a517-2e9e64f5c192",
+	"name": "ProMIS Documents Service",
+	"description": "",
+	"order": [
+		"1d29f06a-e8d9-7dc1-209d-d1ade413c5c0",
+		"32cd3fc0-df09-0c74-98cc-db3f71978c82",
+		"6d184023-aaad-afbf-ed27-07178c9de79a",
+		"5a68a13f-db85-009b-c6c1-a0af23d90f3f"
+	],
+	"folders": [],
+	"timestamp": 1500005690435,
+	"owner": "2240689",
+	"public": false,
+	"requests": [
+		{
+			"id": "1d29f06a-e8d9-7dc1-209d-d1ade413c5c0",
+			"headers": "",
+			"headerData": [],
+			"url": "188.166.210.45:8000/documents/1?xomlanid=NGOLAMA",
+			"queryParams": [
+				{
+					"key": "xomlanid",
+					"value": "NGOLAMA",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"docid is 101\"] = jsonData.docid === \"101\";\ntests[\"description is PMoC\"] = jsonData.description === \"PMoC\";\ntests[\"status is IW\"] = jsonData.status === \"IW\";\ntests[\"user is PWP\"] = jsonData.user === \"PWP\";\ntests[\"link is correct\"] = jsonData.link === \"https://github.com/siamchamnangag/ProMISFileService/raw/master/src/main/resources/PMoC_yyyyMMddHHmmss.xlsx\";",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1500006208761,
+			"name": "Test case 1",
+			"description": "",
+			"collectionId": "939ca601-b2a4-5fc0-a517-2e9e64f5c192",
+			"responses": [],
+			"rawModeData": ""
+		},
+		{
+			"id": "32cd3fc0-df09-0c74-98cc-db3f71978c82",
+			"headers": "",
+			"headerData": [],
+			"url": "188.166.210.45:8000/documents/2?xomlanid=NGOLAMA",
+			"queryParams": [
+				{
+					"key": "xomlanid",
+					"value": "NGOLAMA",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "tests[\"Status code is 404\"] = responseCode.code === 404;\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"message is Document not found\"] = jsonData.message === \"Document not found\";",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1500006301493,
+			"name": "Test case 2",
+			"description": "",
+			"collectionId": "939ca601-b2a4-5fc0-a517-2e9e64f5c192",
+			"responses": [],
+			"rawModeData": ""
+		},
+		{
+			"id": "5a68a13f-db85-009b-c6c1-a0af23d90f3f",
+			"headers": "",
+			"headerData": [],
+			"url": "188.166.210.45:8000/documents/4?xomlanid=NGOLAMA",
+			"queryParams": [
+				{
+					"key": "xomlanid",
+					"value": "NGOLAMA",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": "tests[\"Status code is 500\"] = responseCode.code === 500;\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"message is Upload failed\"] = jsonData.message === \"Upload failed\";",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1500006427257,
+			"name": "Test case 4",
+			"description": "",
+			"collectionId": "939ca601-b2a4-5fc0-a517-2e9e64f5c192",
+			"responses": [],
+			"rawModeData": ""
+		},
+		{
+			"id": "6d184023-aaad-afbf-ed27-07178c9de79a",
+			"headers": "",
+			"headerData": [],
+			"url": "188.166.210.45:8000/documents/3?xomlanid=XXX",
+			"queryParams": [
+				{
+					"key": "xomlanid",
+					"value": "XXX",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "tests[\"Status code is 404\"] = responseCode.code === 404;\n\nvar jsonData = JSON.parse(responseBody);\ntests[\"message is User not found\"] = jsonData.message === \"User not found\";",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1500006366209,
+			"name": "Test case 3",
+			"description": "",
+			"collectionId": "939ca601-b2a4-5fc0-a517-2e9e64f5c192",
+			"responses": [],
+			"rawModeData": ""
+		}
+	]
+}
