@@ -6,30 +6,26 @@ import com.scg.document.model.UploadFileBody;
 import com.scg.document.model.UploadFileDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Created by marcus on 7/13/2017 AD.
+ * Created by tanatloke on 7/13/2017 AD.
  */
 @Service
 public class DocumentService {
 
-    @Value("${promis.dirservice.url.base}")
-    private String getDirURL;
-
-    @Value("${promis.fileservice.url.get}")
-    private String getFileURL;
-
-    @Value("${promis.fileservice.url.post}")
-    private String postFileURL;
-
     @Autowired
     RestTemplate restTemplate;
+    @Value("${promis.dirservice.url.base}")
+    private String getDirURL;
+    @Value("${promis.fileservice.url.get}")
+    private String getFileURL;
+    @Value("${promis.fileservice.url.post}")
+    private String postFileURL;
 
     public DirDTO getDirByDocID(int documentId) throws Exception {
           return restTemplate.getForObject(getDirURL.replace("{docid}",String.valueOf(documentId)),DirDTO.class);
