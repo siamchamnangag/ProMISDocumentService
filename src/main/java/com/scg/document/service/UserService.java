@@ -23,9 +23,7 @@ public class UserService {
     RestTemplate restTemplate;
 
     public SAPUser getSAPUser(String xomLanID) throws Exception{
-
-        sapUserServiceURL = sapUserServiceURL.replace("{xomLanID}",xomLanID);
-        SAPUser sapUser =  restTemplate.getForObject(new URI(sapUserServiceURL), SAPUser.class);
+        SAPUser sapUser =  restTemplate.getForObject(sapUserServiceURL.replace("{xomLanID}",xomLanID), SAPUser.class);
         return  sapUser;
     }
 

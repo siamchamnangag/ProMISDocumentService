@@ -49,11 +49,11 @@ public class DocumentControllerTest {
                .andExpect(jsonPath("$.message", is("document is created") ));
     }
 
-    /*@org.junit.Test
+    @org.junit.Test
     public void testCreateDocumentWithOtherUser() throws Exception {
         mockMvc.perform(post("/documents/1?xomlanid=xxxxx")).andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message", is("User not found.") ));
-    }*/
+    }
 
 
 
