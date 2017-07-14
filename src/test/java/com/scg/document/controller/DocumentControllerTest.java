@@ -11,6 +11,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -37,11 +39,22 @@ public class DocumentControllerTest {
     }
 
     @org.junit.Test
-    public void testCreateDocumentFromTemplateShouldSuccess() throws Exception {
+    public void testCreateDocumentFromTemplateShouldSuccessWithUserNGOLAMA() throws Exception {
         //createdDirResponse
        mockMvc.perform(post("/documents/1?xomlanid=NGOLAMA")).andExpect(status().isOk())
-               .andExpect(jsonPath("$.docid", is(900001) ));
-
+               .andExpect(jsonPath("$.docid", is(900001) ))
+               .andExpect(jsonPath("$.status", is("IW") ))
+               .andExpect(jsonPath("$.user", is("NGOLAMA") ))
+               .andExpect(jsonPath("$.link", allOf(containsString("PMoC_complexity_and_effort_assessment"),containsString(".xlsx")))  )
+               .andExpect(jsonPath("$.message", is("document is created") ));
     }
+
+    /*@org.junit.Test
+    public void testCreateDocumentWithOtherUser() throws Exception {
+        mockMvc.perform(post("/documents/1?xomlanid=xxxxx")).andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message", is("User not found.") ));
+    }*/
+
+
 
 }
