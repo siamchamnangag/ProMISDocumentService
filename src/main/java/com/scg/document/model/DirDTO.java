@@ -10,16 +10,18 @@ public class DirDTO {
     private String status;
     private String user;
     private String link;
+    private String messsage;
 
     public DirDTO() {
     }
 
-    public DirDTO(String link, int docid, String description, String status, String user) {
+    public DirDTO(String link, int docid, String description, String status, String user,String message) {
         this.link = link;
         this.docid = docid;
         this.description = description;
         this.status = status;
         this.user = user;
+        this.messsage = message;
     }
 
     public int getDocid() {
@@ -60,5 +62,13 @@ public class DirDTO {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getMesssage() {
+        return messsage;
+    }
+
+    public void setMesssage(String messsage) {
+        this.messsage = messsage;
     }
 }

@@ -21,14 +21,14 @@ public class DocumentService {
     @Autowired
     RestTemplate restTemplate;
     @Value("${promis.dirservice.url.base}")
-    private String getDirURL;
+    private String baseDirUrl;
     @Value("${promis.fileservice.url.get}")
     private String getFileURL;
     @Value("${promis.fileservice.url.post}")
     private String postFileURL;
 
     public DirDTO getDirByDocID(int documentId) throws Exception {
-          return restTemplate.getForObject(getDirURL.replace("{docid}",String.valueOf(documentId)),DirDTO.class);
+          return restTemplate.getForObject(baseDirUrl.replace("{docid}",String.valueOf(documentId)),DirDTO.class);
     }
 
     public GetFileDTO getFileContent(String templateLink) throws Exception {
@@ -45,4 +45,16 @@ public class DocumentService {
 
         return restTemplate.postForObject(postFileURL,entity , UploadFileResponseDTO.class);
     }
+
+    public DirDTO createDirByDirSerice(DirDTO fetchedDir){
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<DirDTO> entity = new HttpEntity<>(fetchedDir,headers);
+
+        return restTemplate.postForObject(baseDirUrl.replace("/{docid}",""),entity,DirDTO.class);
+    }
+
+
 }

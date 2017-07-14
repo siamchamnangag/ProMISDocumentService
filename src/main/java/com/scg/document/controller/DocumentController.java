@@ -1,6 +1,7 @@
 package com.scg.document.controller;
 
 import com.scg.document.model.DirDTO;
+import com.scg.document.model.SAPUser;
 import com.scg.document.model.SCGResponseBody;
 import com.scg.document.model.UploadFileResponseDTO;
 import com.scg.document.service.DocumentService;
@@ -25,7 +26,10 @@ public class DocumentController {
     DocumentService documentService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/{doc_id}")
-    ResponseEntity createDocumentFromTemplatev1(@PathVariable("doc_id") int documentId){
+    ResponseEntity createDocumentFromTemplate(@PathVariable("doc_id") int documentId,
+                                                @RequestParam(required = true,name = "xomlanid") String xomLanId) throws Exception {
+
+        SAPUser sapUser = userService.getSAPUser(xomLanId);
 
         DirDTO fetchedDir;
         try {
@@ -52,10 +56,11 @@ public class DocumentController {
 
         // create dir with new link and old dir
         fetchedDir.setLink(uploadResponse.getLink());
+        fetchedDir.setUser(sapUser.getSapid());
 
+        DirDTO createdDirResponse = documentService.createDirByDirSerice(fetchedDir);
 
-
-        return new ResponseEntity(uploadResponse.getLink(),HttpStatus.OK);
+        return new ResponseEntity(createdDirResponse,HttpStatus.OK);
     }
 
 
